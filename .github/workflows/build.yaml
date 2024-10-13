@@ -1,0 +1,25 @@
+name: Build-Test
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+
+  build-test-publish:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: "Install Pip Requirements"
+      # It is useful for viability and debugging purposes to see
+      # the details of the github runner env.
+      run: |
+        set -x
+        lscpu
+        free -h
+        df -h
+        docker version
+        python --version
+        whoami
