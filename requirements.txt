@@ -5,3 +5,4 @@ pytest
 pytest-flask
 selenium
 webdriver-manager
+coverage==6.4.3
