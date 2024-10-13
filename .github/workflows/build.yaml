@@ -29,3 +29,9 @@ jobs:
         source venv/bin/activate
         export PYTHONPATH=$(pwd)
         coverage report
+
+    - name: Selenium Tests
+      run: |
+        source venv/bin/activate
+        export PYTHONPATH=$(pwd)
+        pytest tests/test_selenium.py

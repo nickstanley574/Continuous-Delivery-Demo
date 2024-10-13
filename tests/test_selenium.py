@@ -4,16 +4,29 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
+import multiprocessing
+
+
+from app import create_app
 
 @pytest.fixture(scope='module')
 def test_client():
     """Set up the Flask test client and run the app."""
-    from app import create_app
     
     app = create_app('local')  # or 'development' based on your config
     app.config['TESTING'] = True
     app.config['WTF_CSRF_ENABLED'] = False  # Disable CSRF for testing
-    # app.run()
+    
+    # Run the app on a different port in a separate thread
+    port = 5000
+    server = multiprocessing.Process(target=app.run, kwargs={'port': port, 'use_reloader': False})
+    server.start()
+    time.sleep(1) # If app time to start
+
+    yield f'http://localhost:{port}'  # Return the URL of the test server
+
+    # Stop the server after tests
+    server.terminate()
 
 @pytest.fixture(scope='module')
 def browser():
