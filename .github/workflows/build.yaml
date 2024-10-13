@@ -16,10 +16,5 @@ jobs:
       # It is useful for viability and debugging purposes to see
       # the details of the github runner env.
       run: |
-        set -x
-        lscpu
-        free -h
-        df -h
-        docker version
-        python --version
-        whoami
+        python -m venv venv
+        source venv/bin/activate
