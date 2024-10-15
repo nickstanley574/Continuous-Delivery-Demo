@@ -1,0 +1,39 @@
+name: Build-Test
+
+on:
+  push:
+    branches: [ "setup-github-build-workflow", "master" ]
+
+jobs:
+
+  build-test-publish:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: "Install Pip Requirements"
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+        pip install -r requirements.txt
+        python --version
+
+    - name: Run Unit Tests
+      run: |
+        source venv/bin/activate
+        export PYTHONPATH=$(pwd)
+        coverage run -m pytest tests/test_app.py 
+
+    - name: Unit Tests Coverage Report
+      run: |
+        source venv/bin/activate
+        export PYTHONPATH=$(pwd)
+        coverage report
+
+    - name: Selenium Tests
+      run: |
+        google-chrome --version
+        source venv/bin/activate
+        export PYTHONPATH=$(pwd)
+        pytest tests/test_selenium.py
