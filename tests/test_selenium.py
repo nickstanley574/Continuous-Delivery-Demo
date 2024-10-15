@@ -35,6 +35,7 @@ def test_client():
 def browser():
     """Set up the Selenium WebDriver."""
     install_path = ChromeDriverManager().install()
+    print(install_path)
     driver = webdriver.Chrome(service=ChromeService(install_path))
     yield driver
     driver.quit()
