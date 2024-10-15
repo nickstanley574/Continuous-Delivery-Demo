@@ -3,7 +3,11 @@ name: Build-Test
 on:
   push:
     branches: [ "setup-github-build-workflow", "master" ]
-
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - master 
+        
 jobs:
 
   build-test-publish:
