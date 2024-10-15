@@ -32,6 +32,7 @@ jobs:
 
     - name: Selenium Tests
       run: |
+        google-chrome --version
         source venv/bin/activate
         export PYTHONPATH=$(pwd)
         pytest tests/test_selenium.py
