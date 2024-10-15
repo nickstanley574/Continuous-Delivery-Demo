@@ -28,10 +28,14 @@ def test_client():
     # Stop the server after tests
     server.terminate()
 
+    with app.app_context():
+        db.drop_all()
+
 @pytest.fixture(scope='module')
 def browser():
     """Set up the Selenium WebDriver."""
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+    install_path = ChromeDriverManager().install()
+    driver = webdriver.Chrome(service=ChromeService(install_path))
     yield driver
     driver.quit()
 
