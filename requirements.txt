@@ -5,5 +5,5 @@ pytest
 pytest-flask
 selenium
 webdriver-manager
-coverage==6.4.3e
+coverage==6.4.3
 flake8
