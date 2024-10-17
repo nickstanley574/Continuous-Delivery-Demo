@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "continuous-delivery-demo"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Flask = "^3.0.3"
+flask-sqlalchemy = "^3.1.1"
+flask-migrate = "^4.0.7"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+selenium = "^4.25.0"
+flake8 = "^7.1.1"
+coverage = "^7.6.3"
+webdriver-manager = "^4.0.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
