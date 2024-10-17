@@ -62,6 +62,6 @@ jobs:
         poetry export --without-hashes --only=dev --format=requirements.txt --output=requirements-dev.txt
         poetry export --without-hashes --only=security --format=requirements.txt --output=requirements-security.txt
 
-        pip-audit -r requirement-app.txt
+        pip-audit -r requirements-app.txt
         pip-audit -r requirements-dev.txt
         pip-audit -r requirements-security.txt
