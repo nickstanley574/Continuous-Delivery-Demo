@@ -3,7 +3,11 @@ name: Build-Test
 on:
   push:
     branches: [ "setup-github-build-workflow", "master" ]
-
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - master 
+        
 jobs:
 
   build-test-publish:
@@ -12,12 +16,18 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
     - name: "Install Pip Requirements"
       run: |
         python -m venv venv
         source venv/bin/activate
         pip install -r requirements.txt
         python --version
+
+    - name: "Style Checks"
+      run: |
+        source venv/bin/activate
+        python -m flake8
 
     - name: Run Unit Tests
       run: |

@@ -4,9 +4,8 @@ from .development import DevelopmentConfig
 from .production import ProductionConfig
 
 config = {
-    'local': LocalConfig,
-    'development': DevelopmentConfig,
-    'production': ProductionConfig,
-    
-    'default': Config
+    "local": LocalConfig,
+    "development": DevelopmentConfig,
+    "production": ProductionConfig,
+    "default": Config,
 }
