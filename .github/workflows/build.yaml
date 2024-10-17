@@ -19,6 +19,9 @@ jobs:
 
     - name: "Install Pip Requirements"
       run: |
+
+        poetry --version
+
         python -m venv venv
         source venv/bin/activate
         pip install -r requirements.txt

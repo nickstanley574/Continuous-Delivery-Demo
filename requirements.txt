@@ -1,9 +1,0 @@
-Flask
-Flask-SQLAlchemy
-Flask-Migrate
-pytest
-pytest-flask
-selenium
-webdriver-manager
-coverage==6.4.3
-flake8
