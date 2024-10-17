@@ -21,7 +21,7 @@ jobs:
       run: |
         pip install poetry poetry-plugin-export
         poetry --version
-        poetry export --without-hashes --format=requirements.txt > requirements.txt
+        poetry export --without-hashes --with dev --format=requirements.txt > requirements.txt
 
     - name: "Install Pip Requirements"
       run: |
