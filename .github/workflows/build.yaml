@@ -68,3 +68,9 @@ jobs:
         pip-audit -r requirements-dev.txt
         printf "\n\nSecurity Requirements\n----------------------\n"
         pip-audit -r requirements-security.txt
+
+    - name: Detect Secret Scan
+      run: |
+        source venv/bin/activate
+        export PYTHONPATH=$(pwd)
+        git ls-files | xargs detect-secrets-hook --exclude-files=migrations
