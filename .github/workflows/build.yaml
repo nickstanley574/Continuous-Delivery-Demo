@@ -21,7 +21,7 @@ jobs:
       run: |
         pip install poetry poetry-plugin-export
         poetry --version
-        poetry export --without-hashes --with dev --format=requirements.txt > requirements.txt
+        poetry export --without-hashes --with dev,security --format=requirements.txt --output=requirements.txt
 
     - name: "Install Pip Requirements"
       run: |
@@ -53,3 +53,15 @@ jobs:
         source venv/bin/activate
         export PYTHONPATH=$(pwd)
         pytest tests/test_selenium.py
+
+    - name: Scan Project Dependencies 
+      run: |
+        source venv/bin/activate
+        export PYTHONPATH=$(pwd)
+        poetry export --without-hashes --format=requirements.txt --output=requirements-app.txt
+        poetry export --without-hashes --only=dev --format=requirements.txt --output=requirements-dev.txt
+        poetry export --without-hashes --only=security --format=requirements.txt --output=requirements-security.txt
+
+        pip-audit -r requirement-app.txt
+        pip-audit -r requirements-dev.txt
+        pip-audit -r requirements-security.txt
