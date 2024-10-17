@@ -17,13 +17,14 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: "Install Pip Requirements"
+    - name: "Install Poetry"
       run: |
         pip install poetry poetry-plugin-export
         poetry --version
-
         poetry export --without-hashes --format=requirements.txt > requirements.txt
 
+    - name: "Install Pip Requirements"
+      run: |
         python -m venv venv
         source venv/bin/activate
         pip install -r requirements.txt
