@@ -62,9 +62,9 @@ jobs:
         poetry export --without-hashes --only=dev --format=requirements.txt --output=requirements-dev.txt
         poetry export --without-hashes --only=security --format=requirements.txt --output=requirements-security.txt
 
-        printf "\nApp Requirements\n----------------------\n"
+        printf "\n\nApp Requirements\n----------------------\n"
         pip-audit -r requirements-app.txt
-        printf "\nDev Requirements\n----------------------\n"
+        printf "\n\nDev Requirements\n----------------------\n"
         pip-audit -r requirements-dev.txt
-        printf "\nSecurity Requirements\n----------------------\n"
+        printf "\n\nSecurity Requirements\n----------------------\n"
         pip-audit -r requirements-security.txt
