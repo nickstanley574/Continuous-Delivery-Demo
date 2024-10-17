@@ -19,7 +19,7 @@ jobs:
 
     - name: "Install Pip Requirements"
       run: |
-
+        pip install poetry
         poetry --version
 
         python -m venv venv
