@@ -17,6 +17,12 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: "Install Poetry"
+      run: |
+        pip install poetry poetry-plugin-export
+        poetry --version
+        poetry export --without-hashes --with dev --format=requirements.txt > requirements.txt
+
     - name: "Install Pip Requirements"
       run: |
         python -m venv venv
