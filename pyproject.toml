@@ -25,6 +25,7 @@ webdriver-manager = "^4.0.2"
 [tool.poetry.group.security.dependencies]
 pip-audit = "^2.7.3"
 detect-secrets = "^1.5.0"
+pip-licenses = "^5.0.0"
 
 
 [build-system]
