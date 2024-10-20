@@ -23,7 +23,14 @@ jobs:
         poetry --version
         poetry export --without-hashes --with dev,security --format=requirements.txt --output=requirements.txt
 
-    # Run Secret Scan first, if a secret has been commited to git 
+    - name: "Install Pip Requirements"
+      run: |
+        python -m venv venv
+        source venv/bin/activate
+        pip install -r requirements.txt
+        python --version
+
+    # Run Secret Scan first, if a secret has been commited it should be addressed.
     - name: Detect Secret Scan
       run: |
         source venv/bin/activate
@@ -33,13 +40,6 @@ jobs:
       run: |
         echo "SECRET_KEY=$(openssl rand -hex 32)" >> $GITHUB_ENV
         echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
-
-    - name: "Install Pip Requirements"
-      run: |
-        python -m venv venv
-        source venv/bin/activate
-        pip install -r requirements.txt
-        python --version
 
     - name: "Style Checks"
       run: |
