@@ -17,9 +17,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set up environment variables
-      run: echo "SECRET_KEY=$(openssl rand -hex 32)" >> $GITHUB_ENV
-
     - name: "Install Poetry"
       run: |
         pip install poetry poetry-plugin-export
@@ -33,6 +30,17 @@ jobs:
         pip install -r requirements.txt
         python --version
 
+    # Run Secret Scan first, if a secret has been commited it should be addressed.
+    - name: Detect Secret Scan
+      run: |
+        source venv/bin/activate
+        git ls-files | xargs detect-secrets-hook --exclude-files=migrations
+
+    - name: Set up environment variables
+      run: |
+        echo "SECRET_KEY=$(openssl rand -hex 32)" >> $GITHUB_ENV
+        echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
+
     - name: "Style Checks"
       run: |
         source venv/bin/activate
@@ -41,26 +49,22 @@ jobs:
     - name: Run Unit Tests
       run: |
         source venv/bin/activate
-        export PYTHONPATH=$(pwd)
         coverage run -m pytest tests/test_app.py 
 
     - name: Unit Tests Coverage Report
       run: |
         source venv/bin/activate
-        export PYTHONPATH=$(pwd)
         coverage report
 
     - name: Selenium Tests
       run: |
         google-chrome --version
         source venv/bin/activate
-        export PYTHONPATH=$(pwd)
         pytest tests/test_selenium.py
 
     - name: Scan Project Dependencies 
       run: |
         source venv/bin/activate
-        export PYTHONPATH=$(pwd)
         poetry export --without-hashes --format=requirements.txt --output=requirements-app.txt
         poetry export --without-hashes --only=dev --format=requirements.txt --output=requirements-dev.txt
         poetry export --without-hashes --only=security --format=requirements.txt --output=requirements-security.txt
@@ -72,8 +76,3 @@ jobs:
         printf "\n\nSecurity Requirements\n----------------------\n"
         pip-audit -r requirements-security.txt
 
-    - name: Detect Secret Scan
-      run: |
-        source venv/bin/activate
-        export PYTHONPATH=$(pwd)
-        git ls-files | xargs detect-secrets-hook --exclude-files=migrations
