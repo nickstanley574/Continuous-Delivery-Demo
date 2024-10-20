@@ -6,6 +6,7 @@ authors = ["Your Name <you@example.com>"]
 readme = "README.md"
 package-mode = false
 
+
 [tool.poetry.dependencies]
 python = "^3.10"
 Flask = "^3.0.3"
@@ -19,6 +20,13 @@ selenium = "^4.25.0"
 flake8 = "^7.1.1"
 coverage = "^7.6.3"
 webdriver-manager = "^4.0.2"
+
+
+[tool.poetry.group.security.dependencies]
+pip-audit = "^2.7.3"
+detect-secrets = "^1.5.0"
+pip-licenses = "^5.0.0"
+
 
 [build-system]
 requires = ["poetry-core"]
