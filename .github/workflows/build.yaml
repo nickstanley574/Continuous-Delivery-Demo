@@ -33,6 +33,12 @@ jobs:
         pip install -r requirements.txt
         python --version
 
+    - name: Detect Secrets Scan
+      run: |
+        source venv/bin/activate
+        export PYTHONPATH=$(pwd)
+        git ls-files | xargs detect-secrets-hook --exclude-files=migrations
+
     - name: "Style Checks"
       run: |
         source venv/bin/activate
@@ -72,8 +78,3 @@ jobs:
         printf "\n\nSecurity Requirements\n----------------------\n"
         pip-audit -r requirements-security.txt
 
-    - name: Detect Secret Scan
-      run: |
-        source venv/bin/activate
-        export PYTHONPATH=$(pwd)
-        git ls-files | xargs detect-secrets-hook --exclude-files=migrations
